@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.seantmalone</groupId>
+    <artifactId>boundedbufferedreader</artifactId>
+    <version>1.1</version>
+    <name>BoundedBufferedReader</name>
+    <packaging>jar</packaging>
+    <inceptionYear>2011</inceptionYear>
+    <developers>
+        <developer>
+            <id>seantmalone</id>
+            <name>Sean Malone</name>
+            <email>sean@seantmalone.com</email>
+            <url>http://www.seantmalone.com</url>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>John Yeary</name>
+            <email>jyeary@bluelotussoftware.com</email>
+            <organization>Blue Lotus Software.com</organization>
+            <organizationUrl>http://bluelotussoftware.com</organizationUrl>
+            <url>http://javaevangelist.blogspot.com</url>
+            <timezone>-5</timezone>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </contributor>
+    </contributors>
+    <licenses>
+        <license>
+            <name>BSD 3-clause "New" or "Revised" License</name>
+            <distribution>repo</distribution>
+            <url>https://raw.githubusercontent.com/seantmalone/BoundedBufferedReader/master/LICENSE</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git://github.com/bluelotussoftware/BoundedBufferedReader.git</connection>
+        <developerConnection>scm:git:ssh://github.com/bluelotussoftware/BoundedBufferedReader.git</developerConnection>
+        <url>https://github.com/bluelotussoftware/BoundedBufferedReader</url>
+    </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <linksource>true</linksource>
+                    <links>
+                        <link>http://docs.oracle.com/javase/7/docs/api/</link>
+                    </links>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+    <description>The class grew out of a code review for a project that was using 
+        the readLine() function of java.io.BufferedReader to read a 
+        user-controlled file.  
+
+        The security issue here is that, even if the number of lines to be 
+        read is limited, an attacker can still cause an OutOfMemoryError 
+        exception by providing a large file with no newline characters.  
+        The readLine function will just keep going until it runs out of 
+        memory, creating a denial of service.
+
+        My team did some research into this issue, but the only thing we 
+        found was an old bug report that had been closed with the status 
+        of "Will Not Fix."  
+
+        The suggested workaround was buggy and inconvenient, so I 
+        wrote the BoundedBufferedReader class to extend BufferedReader 
+        and add the capability to limit both line length and the number 
+        of lines read.  This class can be used in much the same way 
+        as the original BufferedReader class.</description>
+
+</project>
